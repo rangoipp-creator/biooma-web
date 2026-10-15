@@ -5,6 +5,7 @@ import Ecosystem from "./components/Ecosystem";
 import Hero from "./components/Hero";
 import Nav from "./components/Nav";
 import Partners from "./components/Partners";
+import Verticals from "./components/Verticals";
 import { Marquee } from "./components/ui";
 import { heroMarquee, perks } from "./data/content";
 
@@ -45,6 +46,8 @@ export default function App() {
             <Marquee items={heroMarquee} tone="lavender" />
           </div>
         </div>
+
+        <Verticals />
 
         <Ecosystem />
 

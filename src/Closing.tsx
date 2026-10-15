@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
-import { ArrowUpRight, BadgeCheck, MessageCircle, Sparkles } from "lucide-react";
-import { CONTACT_EMAIL, WHATSAPP_DISPLAY, WHATSAPP_URL } from "../data/contact";
+import { ArrowUpRight, BadgeCheck, Mail, MessageCircle, Sparkles } from "lucide-react";
+import { WHATSAPP_DISPLAY, WHATSAPP_URL } from "../data/contact";
 import { products, verticals } from "../data/content";
 import { Logo, Marker } from "./ui";
 
@@ -97,6 +97,13 @@ export default function Closing() {
                   Hablar por WhatsApp
                   <ArrowUpRight className="h-4 w-4 transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
                 </a>
+                <a
+                  href="mailto:rangoipp@gmail.com"
+                  className="inline-flex items-center gap-2.5 rounded-full border border-ink/10 bg-paper px-8 py-4 font-display text-sm font-bold uppercase tracking-wide text-ink transition-colors duration-300 hover:bg-butter"
+                >
+                  <Mail className="h-4 w-4" />
+                  rangoipp@gmail.com
+                </a>
               </div>
             </div>
           </motion.div>
@@ -176,10 +183,10 @@ export default function Closing() {
                 </li>
                 <li>
                   <a
-                    href={`mailto:${CONTACT_EMAIL}`}
+                    href="mailto:rangoipp@gmail.com"
                     className="text-muted transition-colors hover:text-ink"
                   >
-                    {CONTACT_EMAIL}
+                    rangoipp@gmail.com
                   </a>
                 </li>
                 <li>

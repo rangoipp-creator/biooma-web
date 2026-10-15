@@ -1,7 +1,6 @@
 import { motion } from "framer-motion";
 import { ArrowUpRight, Check } from "lucide-react";
-import { useState, type FormEvent } from "react";
-import { CONTACT_EMAIL } from "../data/contact";
+import { useState } from "react";
 import { toneBg, verticals } from "../data/content";
 import PartnerAds from "./PartnerAds";
 import { Marker, SectionHead } from "./ui";
@@ -15,31 +14,10 @@ export default function AgencyBuilder() {
     );
   }
 
-  function handleSaasSubmit(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault();
-    const formData = new FormData(event.currentTarget);
-    const name = String(formData.get("contactName") ?? "").trim();
-    const saasName = String(formData.get("saasName") ?? "").trim();
-    const email = String(formData.get("email") ?? "").trim();
-    const website = String(formData.get("website") ?? "").trim();
-    const description = String(formData.get("description") ?? "").trim();
-    const subject = encodeURIComponent(`Quiero sumar ${saasName} al ecosistema Biooma`);
-    const body = encodeURIComponent(
-      [
-        "Hola Biooma, quiero presentar mi SaaS para sumarlo al ecosistema.",
-        "",
-        `Nombre y apellido: ${name}`,
-        `SaaS: ${saasName}`,
-        `Email de contacto: ${email}`,
-        `Sitio web: ${website || "No informado"}`,
-        "",
-        "Descripción de la solución:",
-        description,
-      ].join("\n")
-    );
-
-    window.location.href = `mailto:${CONTACT_EMAIL}?subject=${subject}&body=${body}`;
-  }
+  const saasSubject = encodeURIComponent("Quiero sumar mi SaaS al ecosistema Biooma");
+  const saasBody = encodeURIComponent(
+    "Hola, tengo una solución SaaS y quiero conocer cómo sumarla al catálogo de Biooma."
+  );
 
   return (
     <section id="agencia" className="relative scroll-mt-20 overflow-hidden bg-lavender/35">
@@ -71,7 +49,7 @@ export default function AgencyBuilder() {
 
         <PartnerAds />
 
-        <div id="verticales" className="mb-12 scroll-mt-28">
+        <div className="mb-12">
           {/* Interactive vertical selector */}
           <div>
             <div className="mb-5 flex items-center justify-between gap-4">
@@ -134,92 +112,30 @@ export default function AgencyBuilder() {
           </div>
         </div>
 
-        {/* SaaS partner intake form */}
+        {/* Short SaaS intake */}
         <motion.div
           id="saas-sumate"
           initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-40px" }}
           transition={{ duration: 0.6, delay: 0.1 }}
-          className="mt-12 rounded-3xl border border-ink/5 bg-peach/70 p-6 sm:p-8 md:p-10"
+          className="mt-12 flex flex-col items-start justify-between gap-6 rounded-3xl border border-ink/5 bg-peach/70 p-6 sm:flex-row sm:items-center sm:p-8"
         >
-          <div className="mb-7 max-w-3xl">
+          <div>
             <p className="font-mono text-[9px] font-semibold uppercase tracking-[0.18em] text-ink/60">
               ¿Tenés una solución propia?
             </p>
             <h3 className="mt-2 font-display text-2xl font-bold tracking-tight text-ink sm:text-3xl">
               ¿Sos un SaaS y querés formar parte? <span className="font-serif italic">Sumate.</span>
             </h3>
-            <p className="mt-3 text-sm leading-relaxed text-muted">
-              Completá los datos y te contactamos para conversar sobre una posible alianza.
-            </p>
           </div>
-          <form onSubmit={handleSaasSubmit} className="grid gap-4 md:grid-cols-2">
-            <label className="grid gap-2 text-sm font-semibold text-ink">
-              Nombre y apellido
-              <input
-                name="contactName"
-                type="text"
-                autoComplete="name"
-                required
-                placeholder="Tu nombre"
-                className="min-h-12 rounded-xl border border-ink/10 bg-paper px-4 text-sm font-normal outline-none transition-shadow placeholder:text-muted/60 focus:border-lavender-deep focus:ring-4 focus:ring-lavender/60"
-              />
-            </label>
-            <label className="grid gap-2 text-sm font-semibold text-ink">
-              Nombre del SaaS
-              <input
-                name="saasName"
-                type="text"
-                required
-                placeholder="Nombre de tu solución"
-                className="min-h-12 rounded-xl border border-ink/10 bg-paper px-4 text-sm font-normal outline-none transition-shadow placeholder:text-muted/60 focus:border-lavender-deep focus:ring-4 focus:ring-lavender/60"
-              />
-            </label>
-            <label className="grid gap-2 text-sm font-semibold text-ink">
-              Email de contacto
-              <input
-                name="email"
-                type="email"
-                autoComplete="email"
-                required
-                placeholder="nombre@empresa.com"
-                className="min-h-12 rounded-xl border border-ink/10 bg-paper px-4 text-sm font-normal outline-none transition-shadow placeholder:text-muted/60 focus:border-lavender-deep focus:ring-4 focus:ring-lavender/60"
-              />
-            </label>
-            <label className="grid gap-2 text-sm font-semibold text-ink">
-              Sitio web <span className="font-normal text-muted">(opcional)</span>
-              <input
-                name="website"
-                type="url"
-                placeholder="https://"
-                className="min-h-12 rounded-xl border border-ink/10 bg-paper px-4 text-sm font-normal outline-none transition-shadow placeholder:text-muted/60 focus:border-lavender-deep focus:ring-4 focus:ring-lavender/60"
-              />
-            </label>
-            <label className="grid gap-2 text-sm font-semibold text-ink md:col-span-2">
-              Contanos brevemente qué hace tu solución
-              <textarea
-                name="description"
-                required
-                rows={3}
-                placeholder="¿Qué problema resuelve y para quién?"
-                className="resize-y rounded-xl border border-ink/10 bg-paper px-4 py-3 text-sm font-normal outline-none transition-shadow placeholder:text-muted/60 focus:border-lavender-deep focus:ring-4 focus:ring-lavender/60"
-              />
-            </label>
-            <div className="flex flex-col items-start gap-3 md:col-span-2 sm:flex-row sm:items-center sm:justify-between">
-              <p className="max-w-xl text-xs leading-relaxed text-muted">
-                Al enviar, se abrirá tu aplicación de correo con los datos listos para enviar a
-                Biooma.
-              </p>
-              <button
-                type="submit"
-                className="group inline-flex shrink-0 items-center gap-2 rounded-full bg-ink px-6 py-3.5 font-display text-sm font-bold uppercase tracking-wide text-cream transition-all duration-300 hover:scale-[1.03] active:scale-95"
-              >
-                Enviar presentación
-                <ArrowUpRight className="h-4 w-4 transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
-              </button>
-            </div>
-          </form>
+          <a
+            href={`mailto:rangoipp@gmail.com?subject=${saasSubject}&body=${saasBody}`}
+            className="group inline-flex shrink-0 items-center gap-2 rounded-full border border-ink/15 bg-paper px-6 py-3.5 font-display text-sm font-bold uppercase tracking-wide text-ink transition-colors duration-300 hover:bg-ink hover:text-cream"
+          >
+            Presentá tu SaaS
+            <ArrowUpRight className="h-4 w-4 transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+          </a>
         </motion.div>
       </div>
     </section>
